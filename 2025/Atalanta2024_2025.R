@@ -154,8 +154,8 @@ library(scales)
 
 temp <- uStatAtalanta %>% 
   mutate(rating = case_when(win_loss == "Win" ~ (uStatAtalanta$ata_goals* (1-uStatAtalanta$ata_win_prob)+(uStatAtalanta$ata_goals-uStatAtalanta$ata_xg)),
-                            win_loss == "Draw" ~ (uStatAtalanta$ata_goals* (.5-uStatAtalanta$ata_win_prob)+(uStatAtalanta$ata_goals-uStatAtalanta$ata_xg)),
-                            win_loss == "Loss" ~ (uStatAtalanta$ata_goals*uStatAtalanta$ata_win_prob)+(uStatAtalanta$ata_goals-uStatAtalanta$ata_xg),
+                            win_loss == "Draw" ~ (uStatAtalanta$ata_goals* uStatAtalanta$ata_win_prob)+(uStatAtalanta$ata_goals-uStatAtalanta$ata_xg),
+                            win_loss == "Loss" ~ (uStatAtalanta$ata_goals* (.5 -uStatAtalanta$ata_win_prob)+(uStatAtalanta$ata_goals-uStatAtalanta$ata_xg)),
                             TRUE ~ 9999)) %>% 
   mutate(rating = rescale(rating)*10) %>% 
   mutate(opp = case_when(!home_abbr == "ATA" ~ home_abbr,
@@ -198,10 +198,11 @@ result_impact <- ggplot(data = temp, aes(y=win_loss, x=rating, color=ata_win_pro
 
 library(cowplot)
 
-plot_grid(win_prob_model_test,result_impact,
+testing_rating_plots <- plot_grid(win_prob_model_test,result_impact,
           goal_impact_model,Opp_goal_impact_model,
           ncol = 2)
 
+save_plot(filename = "images/testing_rating_plots.png",plot = testing_rating_plots)
 
 ggplot(data = temp, aes(y=rating,x=match_number))+
   geom_point(size=8,color="#1e71b8")+
