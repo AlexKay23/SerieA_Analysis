@@ -160,7 +160,12 @@ temp <- uStatAtalanta %>%
   mutate(rating = rescale(rating)*10) %>% 
   mutate(opp = case_when(!home_abbr == "ATA" ~ home_abbr,
                          !away_abbr == "ATA" ~ away_abbr,
-                         TRUE ~ "Fail"))
+                         TRUE ~ "Fail")) %>% 
+  mutate(goal_diff = ata_goals-opp_goals) %>% 
+  mutate(xg_diff = ata_xg-opp_xg) %>% 
+  mutate(points_per_game = case_when(win_loss == "Win" ~ 3,
+                                     win_loss == "Draw" ~ 1,
+                                     TRUE ~ 0))
 
 ### plots testing the the rating
 
@@ -234,7 +239,12 @@ ggplot(data = temp, aes(x=match_number))+
 
 
 mean(temp$rating)
+mean(temp$points_per_game)
 
+
+
+
+#table
 
 
 
