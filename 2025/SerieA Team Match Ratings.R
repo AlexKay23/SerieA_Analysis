@@ -194,8 +194,3 @@ ggplot(stats, aes(x=ppg,y=avg_goal,label=teamHelper))+geom_text()+
 
 
 
-
-
-
-
-
