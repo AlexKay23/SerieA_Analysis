@@ -16,5 +16,5 @@ Very similar to Atalanta B.C's file, but another team in Serie A I like to follo
 This file was created to visualize who shoots where and they type of shots. This is grown out of wanted to compare to Atalanta B.C
 
 ## Serie A Team Match Ratings
-I developed a formuala to rate each teams match, creating a "score". Here we look at stats on a leauge level, this will be used to compare averages to not just Atalanta, but other teams as well.
+I developed a formula to rate each teams match, creating a "score". Here we look at stats on a leauge level, this will be used to compare averages to not just Atalanta, but other teams as well.
 
