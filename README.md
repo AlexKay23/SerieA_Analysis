@@ -6,10 +6,10 @@
 This project started by wanting to visualize the success of Atalanta B.C in comparison to other Serie A teams
 
 
-## Atalanta B.C
+## <img src="https://github.com/AlexKay23/SerieA_Analysis/blob/7f3728cd9d7743aee3691ef93861c6db35982921/Images/atalanta-seeklogo.png" alt="Sample Image" width="32" height="55"> Atalanta B.C
 Atalanta2024_2025.R file is very much a summary of Atalanta B.C
 
-## AS Roma
+## <img src="https://github.com/AlexKay23/SerieA_Analysis/blob/7f3728cd9d7743aee3691ef93861c6db35982921/Images/as-roma-football-club-seeklogo.png" alt="Sample Image" width="45" height="45">AS Roma
 Very similar to Atalanta B.C's file, but another team in Serie A I like to follow
 
 ## Serie A Shots
