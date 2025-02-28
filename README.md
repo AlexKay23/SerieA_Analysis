@@ -1,7 +1,8 @@
 # Serie A Analysis
 
-
+<p align="center">
 <img src="https://github.com/user-attachments/assets/bc3e524b-ff41-4b97-af9d-38bcb053cfd8" alt="Sample Image" width="250" height="300">
+</p>
 
 This project started by wanting to visualize the success of Atalanta B.C in comparison to other Serie A teams
 
