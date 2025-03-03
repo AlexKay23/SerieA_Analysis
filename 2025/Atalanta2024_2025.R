@@ -252,5 +252,3 @@ mean(temp$points_per_game)
 
 
 
-
-

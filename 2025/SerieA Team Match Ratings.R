@@ -94,7 +94,13 @@ nn <- all_serie_a %>%
                                 team_status == "home_team" ~ home_goals - away_goals)) %>% 
   mutate(xg_diff = case_when(team_status == "away_team" ~ away_xG-home_xG,
                              team_status == "home_team" ~ home_xG - away_xG)) %>% 
-  select(match_id,23:30)
+  select(match_id,23:30) %>% 
+  group_by(match_id) %>% 
+  mutate(goals_against = case_when(
+    team_status == "home_team" ~ goals[team_status == "away_team"],
+    team_status == "away_team" ~ goals[team_status == "home_team"]
+  )) %>%
+  ungroup()
 
 
 
@@ -107,7 +113,10 @@ stats <- nn %>%
             ppg = mean(points, na.rm = TRUE),
             points = sum(points,na.rm = TRUE),
             goals = sum(goals, na.rm = TRUE),
-            goal_diff = sum(goal_diff,na.rm = TRUE))
+            goal_diff = sum(goal_diff,na.rm = TRUE),
+            goals_against_tot = sum(goals_against)) %>%  
+  mutate(teamHelper = case_when(teamHelper == "Parma Calcio 1913" ~ "Parma",
+                                TRUE ~ teamHelper))
 
 
 ggplot(stats, aes(x=ppg,y=avg_xg_diff,label=teamHelper))+geom_text()+
@@ -129,6 +138,29 @@ ggplot(stats, aes(x=ppg,y=avg_xg_diff,label=teamHelper))+geom_text()+
   geom_vline(xintercept = mean(stats$ppg))
 
 
+ggplot(stats, aes(x=goals,y=goals_against_tot,label=teamHelper,color=points))+geom_text()+
+  labs(title = "Expected Goals Points Per Game",
+       y = "Goal Agianst",
+       x = "Goals",
+       subtitle = "Serie A 2024/25 Season",
+       caption = "Source: Understat.com")+
+  theme(axis.line = element_line(color = 'black'),
+        plot.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.title = element_text(hjust = 0.5, size = 14),
+        plot.subtitle = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = "bold"),
+        panel.background = element_rect(color = "black",fill = "white"))+
+  geom_hline(yintercept = mean(stats$goals_against_tot))+
+  geom_vline(xintercept = mean(stats$goals)) %>% 
+  geom_hline(yintercept = quantile(stats$goals_against_tot, probs = 0.15),linetype="dashed",color="red")+
+  geom_hline(yintercept = quantile(stats$goals_against_tot, probs = 0.85),linetype="dashed",color="red")
+
+
+
+
 ggplot(stats, aes(x=points,y=goal_diff,label=teamHelper))+geom_text()+
   geom_hline(yintercept = mean(stats$goal_diff))+
   geom_vline(xintercept = mean(stats$points))
@@ -145,6 +177,9 @@ adv_stats_tbl <- stats %>%
   data_color(
     columns = 2:9, palette = c("red", "green")
   ) %>% 
+  data_color(
+    columns = 10, palette = c("green","red")
+  ) %>% 
   fmt_number(columns = c(2:6),
              decimals = 2) %>% 
   cols_label(
@@ -156,7 +191,8 @@ adv_stats_tbl <- stats %>%
     ppg = "PPG",
     points = "Points",
     goals= "Goals",
-    goal_diff = "Goal Diff"
+    goal_diff = "Goal Diff",
+    goals_against_tot = "Goals Against"
   ) %>% 
   cols_align(align = "center",
              columns = everything()) %>% 
@@ -169,14 +205,59 @@ adv_stats_tbl <- stats %>%
   tab_options(
     table.border.top.style = "none",
     footnotes.font.size = 12,
-    table.margin.right = 320
+    table.margin.right = 50000
   ) %>% 
   tab_footnote(footnote = "Understat.com",
                placement = "left") %>% 
-  cols_width(c(2:9) ~ px(90),
-             teamHelper ~ 150)
+  cols_width(c(2:10) ~ px(90),
+             teamHelper ~ 100)
 
-gtsave(adv_stats_tbl,"images/adv_stats_tbl.png")
+adv_stats_tbl <- stats %>% 
+  arrange(desc(points)) %>% 
+  mutate(spacer = "") %>%  # Add an empty spacer column
+  gt() %>% 
+  data_color(
+    columns = 2:9, palette = c("red", "green")
+  ) %>% 
+  data_color(
+    columns = 10, palette = c("green", "red")
+  ) %>% 
+  fmt_number(columns = c(2:6),
+             decimals = 2) %>% 
+  cols_label(
+    teamHelper = "Team",
+    avg_goal_diff = "Avg Goal Diff",
+    avg_goal = "Average Goal Per Game",
+    avg_xg = "xG Per Game",
+    avg_xg_diff = "xG Diff",
+    ppg = "PPG",
+    points = "Points",
+    goals = "Goals",
+    goal_diff = "Goal Diff",
+    goals_against_tot = "Goals Against",
+    spacer = ""  # Label for the spacer column
+  ) %>% 
+  cols_align(align = "center",
+             columns = everything()) %>% 
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  ) %>% 
+  tab_header(
+    title = md("**Serie A 2024/25 Advanced Stats**")
+  ) %>% 
+  tab_options(
+    table.border.top.style = "none",
+    footnotes.font.size = 12
+  ) %>% 
+  tab_footnote(footnote = "Understat.com",
+               placement = "left") %>% 
+  cols_width(c(2:10) ~ px(90),
+             teamHelper ~ 100,
+             spacer ~ px(110))  # Set the width of the spacer column
+
+
+gtsave(adv_stats_tbl,"images/adv_stats_tbl.png",expand = 10)
 
 adv_stats_tbl
 
@@ -191,6 +272,8 @@ ggplot(stats, aes(x=goals,y=avg_xg_diff,label=teamHelper))+geom_text()+
 ggplot(stats, aes(x=ppg,y=avg_goal,label=teamHelper))+geom_text()+
   geom_hline(yintercept = mean(stats$avg_goal))+
   geom_vline(xintercept = mean(stats$ppg))
+
+
 
 
 
