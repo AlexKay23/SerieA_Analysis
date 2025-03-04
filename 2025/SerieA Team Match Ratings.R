@@ -139,16 +139,12 @@ ggplot(stats, aes(x=ppg,y=avg_xg_diff,label=teamHelper))+geom_text()+
   geom_vline(xintercept = mean(stats$ppg))
 
 
-ggplot(stats, aes(x=goals,y=goals_against_tot,label=teamHelper,color=points))+geom_text()+
+goals_plot <- ggplot(stats, aes(x=goals,y=goals_against_tot,label=teamHelper,color=points))+geom_text()+
   labs(title = "Goals By Goals Against",
        y = "Goal Agianst",
        x = "Goals",
        subtitle = "Serie A 2024/25 Season",
        caption = "Source: Understat.com")+
-  annotation_custom(rasterGrob(slogo2,
-                               width = unit(.45,"npc"), 
-                               height = unit(.8,"npc")), 
-                    -Inf, Inf, -Inf, Inf)+
   theme(axis.line = element_line(color = 'black'),
         plot.background = element_blank(),
         panel.grid.major = element_blank(),
@@ -162,6 +158,8 @@ ggplot(stats, aes(x=goals,y=goals_against_tot,label=teamHelper,color=points))+ge
   geom_vline(xintercept = mean(stats$goals)) %>% 
   geom_hline(yintercept = quantile(stats$goals_against_tot, probs = 0.15),linetype="dashed",color="red")+
   geom_hline(yintercept = quantile(stats$goals_against_tot, probs = 0.85),linetype="dashed",color="red")
+
+ggplot2::ggsave(plot = goals_plot,filename = "images/goals_plot.png")
 
 
 
