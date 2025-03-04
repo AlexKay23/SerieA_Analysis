@@ -119,6 +119,7 @@ stats <- nn %>%
                                 TRUE ~ teamHelper))
 
 
+
 ggplot(stats, aes(x=ppg,y=avg_xg_diff,label=teamHelper))+geom_text()+
   labs(title = "Expected Goals Points Per Game",
        y = "xG Differental",
@@ -139,11 +140,15 @@ ggplot(stats, aes(x=ppg,y=avg_xg_diff,label=teamHelper))+geom_text()+
 
 
 ggplot(stats, aes(x=goals,y=goals_against_tot,label=teamHelper,color=points))+geom_text()+
-  labs(title = "Expected Goals Points Per Game",
+  labs(title = "Goals By Goals Against",
        y = "Goal Agianst",
        x = "Goals",
        subtitle = "Serie A 2024/25 Season",
        caption = "Source: Understat.com")+
+  annotation_custom(rasterGrob(slogo2,
+                               width = unit(.45,"npc"), 
+                               height = unit(.8,"npc")), 
+                    -Inf, Inf, -Inf, Inf)+
   theme(axis.line = element_line(color = 'black'),
         plot.background = element_blank(),
         panel.grid.major = element_blank(),
