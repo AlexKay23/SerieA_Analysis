@@ -145,8 +145,8 @@ goals_plot <- ggplot(stats, aes(x=goals,y=goals_against_tot,label=teamHelper,col
        x = "Goals",
        subtitle = "Serie A 2024/25 Season",
        caption = "Source: Understat.com")+
+  theme_bw()+
   theme(axis.line = element_line(color = 'black'),
-        plot.background = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
