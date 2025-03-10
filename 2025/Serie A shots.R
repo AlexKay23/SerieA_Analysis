@@ -106,3 +106,15 @@ ggplot(ata_shots2 %>%
   ylim(0,1)
 
 
+
+ggplot(ata_shots2, aes(x=X,y=Y,colour = xG))+geom_point()+coord_flip()+
+  facet_wrap(~situation)
+
+
+ggplot(ata_shots2, aes(x=xG,y=lastAction))+geom_boxplot()
+
+xg_lm1 <- lm(xG ~ X + Y + lastAction, data = ata_shots2)
+
+summary(xg_lm1)
+plot(xg_lm1)
+
