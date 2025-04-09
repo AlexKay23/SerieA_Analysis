@@ -9,7 +9,7 @@ top_4 <- mr_table %>% top_n(4) %>%
 t4_filter <- top_4$team
 
 
-ggplot() +
+ata_xg_comp_plot <- ggplot() +
   stat_summary(data = nn, aes(x = datetime, y = xg, linetype = "Overall Mean"), 
                geom = "line", fun = "mean", color = "black", linewidth = 1,alpha = 0.2) +
   stat_summary(data = nn %>% filter(teamHelper %in% t4_filter), 
@@ -41,5 +41,6 @@ ggplot() +
         panel.background = element_rect(color = "black",fill = "white"),
         legend.key = element_blank())
 
+ggsave(plot = ata_xg_comp_plot,filename = "images/ata_xg_comp_plot.png")
 
 
