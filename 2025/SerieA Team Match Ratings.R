@@ -94,13 +94,14 @@ nn <- all_serie_a %>%
                                 team_status == "home_team" ~ home_goals - away_goals)) %>% 
   mutate(xg_diff = case_when(team_status == "away_team" ~ away_xG-home_xG,
                              team_status == "home_team" ~ home_xG - away_xG)) %>% 
-  select(match_id,23:30) %>% 
+  select(match_id,datetime,23:30) %>% 
   group_by(match_id) %>% 
   mutate(goals_against = case_when(
     team_status == "home_team" ~ goals[team_status == "away_team"],
     team_status == "away_team" ~ goals[team_status == "home_team"]
   )) %>%
-  ungroup()
+  ungroup() %>% 
+  mutate(datetime= as.Date(datetime))
 
 
 
