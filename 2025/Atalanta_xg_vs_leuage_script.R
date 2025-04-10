@@ -1,5 +1,5 @@
 
-source("SerieA Team Match Ratings.R")
+source("2025/SerieA Team Match Ratings.R")
 
 my_team <- nn %>% filter(teamHelper == "Atalanta")
 
@@ -30,16 +30,7 @@ ata_xg_comp_plot <- ggplot() +
        x = "Date",
        subtitle = "Serie A 2024/25 Season",
        caption = "Source: Understat.com")+
-  theme(axis.line = element_line(color = 'black'),
-        plot.background = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        plot.title = element_text(hjust = 0.5, size = 14),
-        plot.subtitle = element_text(hjust = 0.5),
-        plot.caption = element_text(hjust = 0, face = "bold"),
-        panel.background = element_rect(color = "black",fill = "white"),
-        legend.key = element_blank())
+  theme_bw()
 
 ggsave(plot = ata_xg_comp_plot,filename = "images/ata_xg_comp_plot.png")
 
