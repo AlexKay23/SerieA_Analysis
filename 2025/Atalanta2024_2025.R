@@ -86,7 +86,7 @@ ggplot(uStatAtalanta, aes(x = match_number, color = win_loss, size = ata_win_pro
                                 Win = "#1e71b8")) +
   scale_size_continuous(range = c(2, 12))+
   annotation_custom(rasterGrob(im2,
-                               width = unit(.4, "npc"), 
+                               width = unit(.25, "npc"), 
                                height = unit(.8, "npc")), 
                     -Inf, Inf, -Inf, Inf) +
   theme(axis.line = element_line(color = 'black'),
