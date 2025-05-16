@@ -21,79 +21,79 @@ aggregate(result ~ ata_play + minute, data = ata_shots2, function(x) length(x))
   
 
 
-
-
-#serieaShots <- understat_league_season_shots(league = "Serie A",season_start_year = 2024)
-
-ggplot(ata_shots2,aes(x=X,y=Y,color =  ata_play))+geom_point()+
-  geom_segment(aes(x = 1, xend = 1, y = .25, yend = .75), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .95, y = .4, yend = .4), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .95, y = .6, yend = .6), color = "white", size = 1)+
-  geom_segment(aes(x = .95, xend = .95, y = .4, yend = .6), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .85, y = .75, yend = .75), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .85, y = .25, yend = .25), color = "white", size = 1)+
-  geom_segment(aes(x = .85, xend = .85, y = .75, yend = .25), color = "white", size = 1)+
-  theme(panel.background = element_rect(fill = '#009A00', color = '#009A17'),
-        panel.grid.major = element_line(color = '#00A619', linetype = "solid",linewidth = 18),
-        panel.grid.minor = element_line(color = '#009A00', size = 18),
-        panel.grid.major.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank())
-  
-
-
-ggplot(ata_shots2 %>% 
-         filter(ata_play == "Atalanta") %>% 
-         filter(result == "Goal"),
-       aes(x=X,y=Y))+
-  geom_point()+
-  geom_segment(aes(x = 1, xend = 1, y = .25, yend = .75), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .95, y = .4, yend = .4), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .95, y = .6, yend = .6), color = "white", size = 1)+
-  geom_segment(aes(x = .95, xend = .95, y = .4, yend = .6), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .85, y = .75, yend = .75), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .85, y = .25, yend = .25), color = "white", size = 1)+
-  geom_segment(aes(x = .85, xend = .85, y = .75, yend = .25), color = "white", size = 1)+
-  theme(panel.background = element_rect(fill = '#009A00', color = '#009A17'),
-        panel.grid.major = element_line(color = '#00A619', linetype = "solid",linewidth = 18),
-        panel.grid.minor = element_line(color = '#009A00', size = 18),
-        panel.grid.major.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank())+
-  facet_wrap(~situation)
-
-
-
-
-
-
-ggplot(ata_shots2 %>% 
-         filter(result == "Goal"),
-       aes(x=X,y=Y,color=opp))+
-  geom_point()+
-  geom_segment(aes(x = 1, xend = 1, y = .25, yend = .75), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .95, y = .4, yend = .4), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .95, y = .6, yend = .6), color = "white", size = 1)+
-  geom_segment(aes(x = .95, xend = .95, y = .4, yend = .6), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .85, y = .75, yend = .75), color = "white", size = 1)+
-  geom_segment(aes(x = 1, xend = .85, y = .25, yend = .25), color = "white", size = 1)+
-  geom_segment(aes(x = .85, xend = .85, y = .75, yend = .25), color = "white", size = 1)+
-  theme(panel.background = element_rect(fill = '#009A00', color = '#009A17'),
-        panel.grid.major = element_line(color = '#00A619', linetype = "solid",linewidth = 18),
-        panel.grid.minor = element_line(color = '#009A00', size = 18),
-        panel.grid.major.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank())+
-  facet_wrap(~situation)
+# Hashed out as libary(ggsoccer) has a plot for the pitch
+# 
+# #serieaShots <- understat_league_season_shots(league = "Serie A",season_start_year = 2024)
+# 
+# ggplot(ata_shots2,aes(x=X,y=Y,color =  ata_play))+geom_point()+
+#   geom_segment(aes(x = 1, xend = 1, y = .25, yend = .75), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .95, y = .4, yend = .4), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .95, y = .6, yend = .6), color = "white", size = 1)+
+#   geom_segment(aes(x = .95, xend = .95, y = .4, yend = .6), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .85, y = .75, yend = .75), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .85, y = .25, yend = .25), color = "white", size = 1)+
+#   geom_segment(aes(x = .85, xend = .85, y = .75, yend = .25), color = "white", size = 1)+
+#   theme(panel.background = element_rect(fill = '#009A00', color = '#009A17'),
+#         panel.grid.major = element_line(color = '#00A619', linetype = "solid",linewidth = 18),
+#         panel.grid.minor = element_line(color = '#009A00', size = 18),
+#         panel.grid.major.y = element_blank(),
+#         axis.title.x = element_blank(),
+#         axis.text.x = element_blank(),
+#         axis.title.y = element_blank(),
+#         axis.text.y = element_blank(),
+#         axis.ticks = element_blank())
+#   
+# 
+# 
+# ggplot(ata_shots2 %>% 
+#          filter(ata_play == "Atalanta") %>% 
+#          filter(result == "Goal"),
+#        aes(x=X,y=Y))+
+#   geom_point()+
+#   geom_segment(aes(x = 1, xend = 1, y = .25, yend = .75), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .95, y = .4, yend = .4), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .95, y = .6, yend = .6), color = "white", size = 1)+
+#   geom_segment(aes(x = .95, xend = .95, y = .4, yend = .6), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .85, y = .75, yend = .75), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .85, y = .25, yend = .25), color = "white", size = 1)+
+#   geom_segment(aes(x = .85, xend = .85, y = .75, yend = .25), color = "white", size = 1)+
+#   theme(panel.background = element_rect(fill = '#009A00', color = '#009A17'),
+#         panel.grid.major = element_line(color = '#00A619', linetype = "solid",linewidth = 18),
+#         panel.grid.minor = element_line(color = '#009A00', size = 18),
+#         panel.grid.major.y = element_blank(),
+#         axis.title.x = element_blank(),
+#         axis.text.x = element_blank(),
+#         axis.title.y = element_blank(),
+#         axis.text.y = element_blank(),
+#         axis.ticks = element_blank())+
+#   facet_wrap(~situation)
+# 
+# 
+# 
+# 
+# 
+# 
+# ggplot(ata_shots2 %>% 
+#          filter(result == "Goal"),
+#        aes(x=X,y=Y,color=opp))+
+#   geom_point()+
+#   geom_segment(aes(x = 1, xend = 1, y = .25, yend = .75), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .95, y = .4, yend = .4), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .95, y = .6, yend = .6), color = "white", size = 1)+
+#   geom_segment(aes(x = .95, xend = .95, y = .4, yend = .6), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .85, y = .75, yend = .75), color = "white", size = 1)+
+#   geom_segment(aes(x = 1, xend = .85, y = .25, yend = .25), color = "white", size = 1)+
+#   geom_segment(aes(x = .85, xend = .85, y = .75, yend = .25), color = "white", size = 1)+
+#   theme(panel.background = element_rect(fill = '#009A00', color = '#009A17'),
+#         panel.grid.major = element_line(color = '#00A619', linetype = "solid",linewidth = 18),
+#         panel.grid.minor = element_line(color = '#009A00', size = 18),
+#         panel.grid.major.y = element_blank(),
+#         axis.title.x = element_blank(),
+#         axis.text.x = element_blank(),
+#         axis.title.y = element_blank(),
+#         axis.text.y = element_blank(),
+#         axis.ticks = element_blank())+
+#   facet_wrap(~situation)
 
 
 
@@ -117,4 +117,32 @@ xg_lm1 <- lm(xG ~ X + Y + lastAction, data = ata_shots2)
 
 summary(xg_lm1)
 plot(xg_lm1)
+
+
+k<-ata_shots2 %>% 
+  filter(ata_play == "nAtalanta") %>% 
+  count()
+kk <- ata_shots2 %>% 
+  filter(ata_play == "Atalanta") %>% 
+  count()
+
+
+library(ggsoccer)
+
+ggplot(ata_shots2 %>% 
+         mutate(x= X*100) %>% 
+         mutate(y= Y*100))+ # did this to scale with the pitch size
+  annotate_pitch()+
+  geom_point(aes(x=x,y=y,color = result))+
+  theme_pitch()+
+  facet_wrap(~ata_play)
+
+
+
+
+
+
+
+
+
 
